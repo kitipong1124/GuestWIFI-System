@@ -13,7 +13,7 @@ $link_login_only = $_GET['link-login-only'] ?? "http://192.168.55.1/login";
 $dst = $_GET['dst'] ?? "https://www.regal-jewelry.com/";
 
 // ดึงข้อมูล User
-$stmt = $mysqli->prepare("SELECT username, password, approved, remark FROM guest_users WHERE id=?");
+$stmt = $mysqli->prepare("SELECT first_name, username, password, approved, remark FROM guest_users WHERE id=?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -219,8 +219,7 @@ if (!$user) {
         <div class="status-approved">
             <div class="status-icon">✅</div>
             <h2>Access Granted!</h2>
-            <p>Welcome, <strong><?=htmlspecialchars($user['username'])?></strong></p>
-            
+            <p>Welcome, <strong><?=htmlspecialchars($user['first_name'])?></strong></p>            
             <p id="loadingText" class="pulse-text">Initiating login process...</p>
             
             <div class="spinner"></div>

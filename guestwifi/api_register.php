@@ -21,7 +21,7 @@ if ($API->connect('192.168.99.1', 'admin', '1234')) {
     $API->comm("/ip/hotspot/user/add", [
         "name" => $username,
         "password" => $password,
-        "profile" => "default"
+        "profile" => "guest"
     ]);
     $API->disconnect();
     echo json_encode(["allow" => true]);
