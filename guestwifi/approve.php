@@ -95,9 +95,12 @@ try {
                 
                 // เพิ่มสำเร็จ ค่อยมาอัปเดต Database
                 $statusText = 'Approved';
-                // ✅ แก้ไข: อัปเดต start_time เป็นปัจจุบัน และ expire_time เป็นอีก 1 วัน (24 ชม.) ข้างหน้า
-                $stmt = $conn->prepare("UPDATE guest_users SET approved = 1, start_time = NOW(), expire_time = DATE_ADD(NOW(), INTERVAL 1 DAY) WHERE id = ?");
-                $stmt->bind_param("i", $id);
+                // คำนวณเวลาสิ้นสุดของวันนี้ (ปี-เดือน-วัน 23:59:59)
+                $expire_date = date('Y-m-d 23:59:59');
+
+                // อัปเดตลง Database
+                $stmt = $conn->prepare("UPDATE guest_users SET approved = 1, start_time = NOW(), expire_time = ? WHERE id = ?");
+                $stmt->bind_param("si", $expire_date, $id);
                 $stmt->execute();
             } else {
                 // ⚠️ ถ้าเชื่อมต่อไม่ได้ ให้แจ้ง Error และ 'ไม่' อัปเดต Database

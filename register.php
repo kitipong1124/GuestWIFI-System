@@ -54,16 +54,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($fullname)) {
         $error = "❌ กรุณากรอกชื่อ-นามสกุล";
     }
-    elseif (!preg_match("/^[a-zA-Z\x{0E00}-\x{0E7F}\s.-]+$/u", $fullname)) {
-        $error = "❌ ชื่อ-นามสกุลไม่ถูกต้อง ห้ามใส่อักษรพิเศษ";
+    // ✅ แก้ไข Regex ชื่อ: เอา . - ออก และจำกัดช่วงภาษาไทย (ตัด ฿ ออก)
+    elseif (!preg_match("/^[a-zA-Z\x{0E01}-\x{0E2E}\x{0E30}-\x{0E3A}\x{0E40}-\x{0E4D}\s]+$/u", $fullname)) {
+        $error = "❌ ชื่อ-นามสกุลไม่ถูกต้อง ห้ามใส่อักษรพิเศษ ตัวเลข หรือสัญลักษณ์";
     }
 
     // 2. ตรวจสอบชื่อบริษัท
     elseif (empty($company_name)) {
         $error = "❌ กรุณากรอกชื่อบริษัท";
     }
-    elseif (!preg_match("/^[a-zA-Z0-9\x{0E00}-\x{0E7F}\s.\-()&,]+$/u", $company_name)) {
-        $error = "❌ ชื่อบริษัทไม่ถูกต้อง ห้ามใช้อักขระพิเศษแปลกๆ";
+    // ✅ แก้ไข Regex บริษัท: อนุญาต . - ( ) & , แต่ตัด ฿ ออก (โดยใช้ช่วงรหัสไทยที่เจาะจงแทน \x{0E00}-\x{0E7F})
+    elseif (!preg_match("/^[a-zA-Z0-9\x{0E01}-\x{0E2E}\x{0E30}-\x{0E3A}\x{0E40}-\x{0E4D}\s.\-()&,]+$/u", $company_name)) {
+        $error = "❌ ชื่อบริษัทไม่ถูกต้อง ห้ามใช้อักขระพิเศษแปลกๆ (เช่น ฿ หรือเครื่องหมายอื่นๆ)";
     }
 
     // 3. ตรวจสอบรูปแบบอีเมล
@@ -170,15 +172,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" name="fullname" id="fullname" required
             placeholder="Somchai Yaito"
             value="<?= isset($_POST['fullname']) ? htmlspecialchars($_POST['fullname']) : '' ?>"
-            oninput="this.value = this.value.replace(/[^a-zA-Z\u0E00-\u0E7F\s.-]/g, '');">
-        </div>
+            oninput="this.value = this.value.replace(/[^a-zA-Z\u0E01-\u0E2E\u0E30-\u0E3A\u0E40-\u0E4D\s]/g, '');">
+            </div>
 
         <div class="form-group">
             <label for="company_name">Company (บริษัท)</label>
             <input type="text" name="company_name" id="company_name" required 
             value="<?= isset($_POST['company_name']) ? htmlspecialchars($_POST['company_name']) : '' ?>"
-            placeholder="Your company name">
-        </div>
+            placeholder="Your company name"
+            oninput="this.value = this.value.replace(/[^a-zA-Z0-9\u0E01-\u0E2E\u0E30-\u0E3A\u0E40-\u0E4D\s.\-()&,]/g, '');">
+            </div>
 
         <div class="form-group">
             <label for="email">Email</label>
