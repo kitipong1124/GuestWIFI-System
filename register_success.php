@@ -205,7 +205,7 @@ if (!$user) {
         <div class="status-pending">
             <div class="status-icon">⏳</div>
             
-            <h2>Registration Successful</h2>
+            <h2>Registration Pending</h2>
             <p>Your account is awaiting approval from IT Admin.<br>
             Please wait momentarily.</p>
             
