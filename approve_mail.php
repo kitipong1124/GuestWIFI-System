@@ -58,7 +58,7 @@ switch ($action) {
             $API->comm("/ip/hotspot/user/add", [
                 "name"     => $user['username'],
                 "password" => $user['password'],
-                "profile"  => "default",
+                "profile"  => "guest",
                 "comment"  => $user['first_name'] . " " . $user['last_name'] . " | " . $user['email']
             ]);
             $API->disconnect();

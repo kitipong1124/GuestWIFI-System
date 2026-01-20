@@ -34,7 +34,7 @@ if ($API->connect(ROUTER_IP, ROUTER_USER, ROUTER_PASS, ROUTER_PORT)) {
         $API->comm("/ip/hotspot/user/add", [
             "name"     => $user['username'],
             "password" => $user['password'],
-            "profile"  => "default",
+            "profile"  => "guest",
             "disabled" => "no",
             "comment"  => "Auto-enable after admin approval"
         ]);
