@@ -3,7 +3,9 @@ session_start();
 date_default_timezone_set('Asia/Bangkok');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $conn = new mysqli("localhost", "root", "", "guestwifi_db");
+    // เรียกใช้ config.php (ถอยกลับ 1 ชั้นเพราะไฟล์นี้อยู่ในโฟลเดอร์ guestwifi)
+    require_once __DIR__ . '/../config.php'; 
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
     if ($conn->connect_error) {
         $_SESSION['toast'] = "<div class='alert alert-danger'>❌ Database connection failed</div>";
         header("Location: register_form.php");

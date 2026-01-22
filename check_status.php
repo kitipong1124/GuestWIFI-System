@@ -1,7 +1,9 @@
 <?php
+require_once 'config.php'; // เรียกไฟล์ config ที่อยู่ระดับเดียวกัน
+
 $id = intval($_GET['id'] ?? 0);
-$mysqli = new mysqli("localhost", "root", "", "guestwifi_db");
-$mysqli->set_charset("utf8mb4");
+$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+$mysqli->set_charset(DB_CHARSET);
 
 $stmt = $mysqli->prepare("SELECT approved, remark, username, password, link_login_only FROM guest_users WHERE id=?");
 $stmt->bind_param("i", $id);

@@ -1,6 +1,8 @@
 <?php
-$mysqli = new mysqli("localhost","root","","guestwifi_db");
-$mysqli->set_charset("utf8mb4");
+require_once 'config.php'; // เรียกไฟล์ config
+
+$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+$mysqli->set_charset(DB_CHARSET);
 $user_id = intval($_GET['user_id']);
 $result = $mysqli->query("SELECT approved, enabled FROM guest_users WHERE id=$user_id");
 $user = $result->fetch_assoc();
