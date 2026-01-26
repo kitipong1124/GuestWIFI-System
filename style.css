@@ -1,141 +1,272 @@
+/* =========================================
+   1. GLOBAL VARIABLES & RESET
+   ตั้งค่าสีและฟอนต์หลักที่นี่ที่เดียว
+   ========================================= */
+:root {
+    --main-green: #38761D;    /* สีเขียวหลัก */
+    --hover-green: #2e6318;   /* สีเขียวตอนเอาเมาส์ชี้ */
+    --light-bg: #f5f7fa;      /* สีพื้นหลังเว็บ */
+    --text-dark: #333;        /* สีตัวหนังสือ */
+    --text-muted: #555;       /* สีตัวหนังสือจางๆ */
+    --shadow-subtle: rgba(0, 0, 0, 0.1); /* เงา */
+    --error-color: #e74c3c;   /* สีแดง error */
+    --error-bg: #fbecec;      /* พื้นหลัง error */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-  margin: 0;
-  padding: 0;
-  font-family: "Segoe UI", Tahoma, sans-serif;
-  background: url('images/company2.jpg') no-repeat center center fixed;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+    font-family: 'Kanit', 'Segoe UI', Tahoma, sans-serif; /* ใช้ Kanit ถ้ามี หรือ Segoe UI สำรอง */
+    background-color: var(--light-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--text-dark);
 }
 
-body::before {  /* พื้นหลังเบลอ */
-  content: "";
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: inherit; 
-  filter: blur(8px); 
-  z-index: -1; 
-} 
-
+/* =========================================
+   2. CARD DESIGN (กล่องกลางหน้าจอ)
+   ใช้ได้ทั้งหน้า Login และ Register
+   ========================================= */
 .card {
-  background: rgba(205, 248, 207, 0.88);
-  padding: 10px;              /* ✅ เดิม 40px → ขยายกล่องให้ใหญ่ขึ้น */
-  border-radius: 25px;        /* ✅ เดิม 20px → มุมโค้งนุ่มขึ้น */
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35); /* ✅ เงาชัดขึ้นนิดหน่อย */
-  width: 650px;               /* ✅ เดิม 550px → กล่องกว้างขึ้น */
-  max-width: 95%;             /* ✅ ป้องกันล้นบนจอเล็ก */
-  text-align: center;
-  animation: fadeIn 0.6s ease-in-out;
-  position: relative;
-  z-index: 1;
+    background: #ffffff;
+    width: 100%;
+    max-width: 430px;         /* ความกว้างสูงสุด (ปรับได้) */
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px var(--shadow-subtle);
+    text-align: center;
+    border-top: 5px solid var(--main-green); /* แถบสีเขียวด้านบน */
+    transition: transform 0.3s ease;
 }
 
-.card img.logo {
-  width: 200px;               /* ✅ เดิม 150px → ขยายให้สมส่วน */
-  margin-bottom: 20px;        /* ✅ เพิ่มช่องว่างนิดหน่อย */
+/* เพิ่มลูกเล่นตอนเอาเมาส์ชี้กล่อง (Optional) */
+.card:hover {
+    transform: translateY(-5px);
 }
 
+/* โลโก้ในกล่อง */
+.logo {
+    width: 120px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+/* หัวข้อ (H2) */
 .card h2 {
-  margin: 10px 0 25px;
-  font-size: 26px;            /* ✅ เดิม 20px → ใหญ่ขึ้น */
-  color: #333;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 30px;
+    color: var(--text-dark);
 }
 
+/* =========================================
+   3. FORMS & INPUTS
+   ========================================= */
 .form-group {
-  margin-bottom: 18px;        /* ✅ เดิม 15px → เพิ่มช่องไฟ */
-  text-align: left;
+    margin-bottom: 20px;
+    text-align: left;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 26px;
-  color: #444;
-  margin-left: 50px;   /* ✅ ขยับ label ไปทางขวา 40px */
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
 }
 
-.form-group input,
-.form-group select {
-  width: 80%;                 /* ✅ เดิม 95% → ให้ช่องกว้างขึ้น */
-  padding: 12px;              /* ✅ เดิม 10px → เพิ่มขนาดฟอร์ม */
-  border: 1px solid #ccc;
-  border-radius: 10px;  
-  font-size: 24px;            /* ✅ เดิม 14px → ใหญ่ขึ้นเล็กน้อย */
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-  outline: none;
-  transition: 0.2s;
-  display: block;       /* ✅ ให้ margin auto ทำงานได้ */
-  margin: 0 auto;
+/* ช่องกรอกข้อมูลทั้งหมด */
+input[type="text"], 
+input[type="password"], 
+input[type="email"], 
+select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: inherit;
+    background: white;
+    transition: all 0.3s ease;
+    outline: none;
 }
 
-.form-group input:focus,
-.form-group select:focus {
-  border-color: #4facfe;
-  box-shadow: 0 0 6px rgba(79, 172, 254, 0.5);
+/* ตอนคลิกที่ช่องกรอก (Focus) */
+input:focus, 
+select:focus {
+    border-color: var(--main-green);
+    box-shadow: 0 0 0 3px rgba(56, 118, 29, 0.2); /* แสงฟุ้งสีเขียว */
 }
 
+/* Placeholder (ข้อความจางๆ ในช่อง) */
+::placeholder {
+    color: #aaa;
+    font-weight: 300;
+}
+
+/* =========================================
+   4. BUTTONS
+   ========================================= */
 .btn {
-  width: 80%;
-  padding: 10px;              /* ✅ เดิม 12px */
-  border: none;
-  border-radius: 10px;
-  font-size: 24px;            /* ✅ เดิม 16px */
-  font-weight: bold;
-  color: #fff;
-  background: linear-gradient(135deg, #4facfe, #00c6ff);
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  transition: 0.3s;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: var(--main-green);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    margin-top: 10px;
 }
 
 .btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    background: var(--hover-green);
+    transform: translateY(-2px);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+/* =========================================
+   5. UTILITIES & ALERTS
+   ========================================= */
+/* กล่องแจ้งเตือน Error (PHP) */
+.php-error-box, .error {
+    background-color: var(--error-bg);
+    color: var(--error-color);
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+    font-size: 14px;
+    text-align: center;
 }
 
-/* 🔹 Responsive Design */
-@media (max-width: 600px) {
-  body {
-    padding: 20px;
-    height: auto;
-  }
+/* เส้นแดงตอนกรอกผิด (JS Validation) */
+.input-error {
+    border-color: var(--error-color) !important;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2) !important;
+}
 
-  .card {
+/* ข้อความตัวเล็กๆ ด้านล่าง */
+.hint-text {
+    margin-top: 25px;
+    font-size: 12px;
+    color: #999;
+}
+
+/* =========================================
+   6. STATUS PAGE & ANIMATIONS
+   (สำหรับหน้า register_success.php)
+   ========================================= */
+
+/* ตั้งค่าสีสถานะเพิ่มเติม */
+:root {
+    --status-pending: #f39c12;  /* สีส้มรอตรวจสอบ */
+    --status-success: #38761D;  /* สีเขียวผ่าน */
+    --status-rejected: #e74c3c; /* สีแดงไม่อนุมัติ */
+}
+
+/* ไอคอนสถานะ (Emoji ตัวใหญ่) */
+.status-icon {
+    font-size: 70px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+/* อนิเมชั่นนาฬิกาทรายหมุน */
+.status-pending .status-icon {
+    animation: hourglassFlip 3s infinite ease-in-out;
+}
+
+/* ข้อความสถานะ */
+.status-pending h2 { color: var(--status-pending); }
+.status-approved h2 { color: var(--status-success); }
+.status-rejected h2 { color: var(--status-rejected); }
+
+.reason-box {
+    background-color: #fff5f5;
+    border-left: 4px solid var(--status-rejected);
+    color: #c0392b;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    text-align: left;
+}
+
+/* ปุ่มลองใหม่ */
+.btn-retry {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--status-rejected);
+    border: 1px solid var(--status-rejected);
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: all 0.3s;
+    font-size: 14px;
+    margin-top: 20px;
+}
+.btn-retry:hover {
+    background-color: var(--status-rejected);
+    color: white;
+}
+
+/* Loading Bar สวยๆ */
+.progress-container {
     width: 100%;
-    padding: 30px;            /* ✅ เดิม 25px → ให้กล่องดูสมส่วนขึ้น */
-    border-radius: 18px;
-  }
+    background-color: #eee;
+    border-radius: 20px;
+    margin-top: 20px;
+    height: 8px;
+    overflow: hidden;
+}
+.progress-bar {
+    height: 100%;
+    background: var(--main-green);
+    width: 0;
+    animation: fillProgress 3s ease-in-out forwards;
+    border-radius: 20px;
+}
 
-  .card img.logo {
-    width: 100px;              /* ✅ เดิม 60px */
-  }
+/* วงกลมหมุนๆ */
+.spinner {
+    margin: 20px auto;
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(56, 118, 29, 0.1);
+    border-top-color: var(--main-green);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
 
-  .card h2 {
-    font-size: 40px;
-  }
+/* Animation Keyframes */
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fillProgress { from { width: 0%; } to { width: 100%; } }
+@keyframes hourglassFlip {
+    0% { transform: rotate(0deg); }
+    40% { transform: rotate(0deg); }
+    50% { transform: rotate(180deg); }
+    90% { transform: rotate(180deg); }
+    100% { transform: rotate(360deg); }
+}
 
-  .form-group label {
-    font-size: 40px;
-  }
+.pulse-text {
+    animation: pulse 1.5s infinite;
+    font-weight: 500;
+    color: var(--main-green);
+    font-size: 14px;
+}
+@keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
 
-  .form-group input,
-  .form-group select {
-    padding: 9px;
-    font-size: 40px;
-  }
-
-  .btn {
-    padding: 11px;
-    font-size: 40px;
-  }
-  
+/* เพิ่มลูกเล่นให้การ์ดเด้งขึ้นมาตอนโหลด */
+.card {
+    animation: slideUp 0.6s ease-out;
 }

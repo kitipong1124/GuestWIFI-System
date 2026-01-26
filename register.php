@@ -126,29 +126,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WiFi Registration</title>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-    /* ... CSS เดิมของคุณ ... */
-    :root { --main-green: #38761D; --light-bg: #f5f7fa; --text-dark: #333; --shadow-subtle: rgba(0, 0, 0, 0.1); }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Kanit', sans-serif; background-color: var(--light-bg); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; color: var(--text-dark); }
-    .card { background: #ffffff; width: 100%; max-width: 420px; padding: 40px 30px; border-radius: 12px; box-shadow: 0 6px 20px var(--shadow-subtle); text-align: center; transition: transform 0.3s ease; border-top: 5px solid var(--main-green); }
-    .card:hover { transform: translateY(-5px); }
-    .logo { max-width: 120px; margin-bottom: 25px; height: auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
-    h2 { font-weight: 500; margin-bottom: 30px; color: var(--text-dark); font-size: 24px; letter-spacing: 0.5px; }
-    .form-group { margin-bottom: 20px; text-align: left; }
-    label { display: block; margin-bottom: 8px; font-weight: 500; color: #555; font-size: 14px; }
-    input[type="text"], input[type="email"], select { width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 15px; transition: all 0.3s ease; background-color: #fff; outline: none; color: #333; }
-    input:focus, select:focus { border-color: var(--main-green); background-color: #fff; box-shadow: 0 0 0 3px rgba(56, 118, 29, 0.2); }
-    ::placeholder { color: #aaa; font-weight: 300; }
-    .btn { width: 100%; padding: 14px; background: var(--main-green); color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 500; cursor: pointer; transition: background 0.3s ease, transform 0.2s; margin-top: 15px; }
-    .btn:hover { background: #2e6318; transform: translateY(-2px); }
-    .input-error { border-color: #e74c3c !important; background-color: #fff !important; box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2) !important; }
-    .php-error-box { background-color: #fbecec; color: #e74c3c; padding: 10px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #f5c6cb; font-size: 14px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>

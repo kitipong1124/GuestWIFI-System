@@ -32,169 +32,13 @@ if (!$user) {
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Registration Status</title>
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-    /* 🎨 Theme Variables */
-    :root {
-        --main-green: #38761D;
-        --light-bg: #f5f7fa;
-        --text-dark: #333;
-        --shadow-subtle: rgba(0, 0, 0, 0.1);
-        --status-pending: #f39c12;
-        --status-rejected: #e74c3c;
-    }
-
-    /* Reset & Base Styles */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Status</title>
     
-    body {
-        font-family: 'Kanit', sans-serif;
-        background-color: var(--light-bg);
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-        color: var(--text-dark);
-    }
-
-    /* Card Design */
-    .card {
-        background: #ffffff;
-        width: 100%;
-        max-width: 450px;
-        padding: 50px 30px;
-        border-radius: 12px;
-        box-shadow: 0 6px 20px var(--shadow-subtle);
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        animation: slideUp 0.5s ease-out;
-        border-top: 5px solid var(--main-green);
-    }
-
-    /* Logo */
-    .logo {
-        max-width: 100px;
-        margin-bottom: 20px;
-        height: auto;
-        opacity: 0.9;
-    }
-
-    /* Icon Styles */
-    .status-icon {
-        font-size: 70px;
-        margin-bottom: 20px;
-        display: inline-block; /* สำคัญ! ต้องมีบรรทัดนี้ถึงจะหมุนได้ */
-    }
-
-    /* ✅ เพิ่ม Animation หมุนนาฬิกาทรายเฉพาะสถานะ Pending */
-    .status-pending .status-icon {
-        animation: hourglassFlip 3s infinite ease-in-out;
-    }
-
-    /* Keyframes: หยุดรอ -> พลิก -> หยุดรอ -> พลิกกลับ */
-    @keyframes hourglassFlip {
-        0% { transform: rotate(0deg); }
-        40% { transform: rotate(0deg); }   /* ช่วงหยุดนิ่ง 40% ของเวลา */
-        50% { transform: rotate(180deg); } /* ช่วงพลิกตัวเร็วๆ */
-        90% { transform: rotate(180deg); } /* หยุดนิ่งในท่ากลับหัว */
-        100% { transform: rotate(360deg); } /* พลิกกลับมาท่าเดิม */
-    }
-
-    h2 { 
-        font-size: 24px; 
-        font-weight: 500; 
-        margin-bottom: 10px; 
-        color: var(--text-dark); 
-    }
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
     
-    p { 
-        font-size: 15px; 
-        color: #666; 
-        line-height: 1.6; 
-        margin-bottom: 25px; 
-    }
-
-    /* Status Colors */
-    .status-pending h2 { color: var(--status-pending); }
-    .status-approved h2 { color: var(--main-green); }
-    .status-rejected h2 { color: var(--status-rejected); }
-
-    .reason-box {
-        background-color: #fff5f5;
-        border-left: 4px solid var(--status-rejected);
-        color: #c0392b;
-        padding: 15px;
-        border-radius: 4px;
-        margin-bottom: 25px;
-        font-size: 14px;
-        text-align: left;
-    }
-    .reason-box strong {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: 600;
-        color: #a93226;
-    }
-
-    /* Spinner & Progress */
-    .spinner {
-        margin: 20px auto;
-        width: 40px;
-        height: 40px;
-        border: 4px solid rgba(56, 118, 29, 0.1);
-        border-top-color: var(--main-green);
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-    }
-    .progress-container {
-        width: 100%;
-        background-color: #eee;
-        border-radius: 20px;
-        margin-top: 20px;
-        height: 6px;
-        overflow: hidden;
-    }
-    .progress-bar {
-        height: 100%;
-        background: var(--main-green);
-        width: 0;
-        animation: fillProgress 3s ease-in-out forwards;
-        border-radius: 20px;
-    }
-    .btn-retry {
-        display: inline-block;
-        text-decoration: none;
-        color: var(--status-rejected);
-        border: 1px solid var(--status-rejected);
-        padding: 10px 20px;
-        border-radius: 6px;
-        transition: all 0.3s;
-        font-size: 14px;
-    }
-    .btn-retry:hover {
-        background-color: var(--status-rejected);
-        color: white;
-    }
-
-    /* Animations */
-    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @keyframes fillProgress { from { width: 0%; } to { width: 100%; } }
-    
-    .pulse-text {
-        animation: pulse 1.5s infinite;
-        font-weight: 500;
-        color: var(--main-green);
-        font-size: 14px;
-    }
-    @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
-
-</style>
+    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
 
@@ -204,7 +48,6 @@ if (!$user) {
     <?php if ($user['approved'] == 0): ?>
         <div class="status-pending">
             <div class="status-icon">⏳</div>
-            
             <h2>Registration Pending</h2>
             <p>Your account is awaiting approval from IT Admin.<br>
             Please wait momentarily.</p>
@@ -236,11 +79,23 @@ if (!$user) {
         </form>
 
         <script>
+            // Script เดิมของคุณสำหรับการเปลี่ยนข้อความและ Submit form
             const steps = ["Verifying credentials...", "Connecting to WiFi Network...", "Success! Redirecting..."];
             let idx = 0;
             const textElement = document.getElementById('loadingText');
-            setInterval(() => { if (idx < steps.length) { textElement.innerText = steps[idx]; idx++; } }, 800);
-            setTimeout(() => { document.getElementById('autoLoginForm').submit(); }, 3000);
+            
+            // เปลี่ยนข้อความทุก 0.8 วิ
+            setInterval(() => { 
+                if (idx < steps.length) { 
+                    textElement.innerText = steps[idx]; 
+                    idx++; 
+                } 
+            }, 800);
+
+            // ส่งข้อมูล Login หลังจาก 3 วิ
+            setTimeout(() => { 
+                document.getElementById('autoLoginForm').submit(); 
+            }, 3000);
         </script>
 
     <?php else: ?>
